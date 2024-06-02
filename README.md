@@ -1,73 +1,81 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Identity Reconciliation Service
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This project is a backend service designed to identify and keep track of a customer's identity across multiple purchases. It is built using NestJS, Node.js, TypeScript, Prisma ORM, and PostgreSQL.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Hosted Service
 
-## Description
+The service is hosted and can be accessed at:
+[https://identity-reconciliation-kobo.onrender.com/identify](https://identity-reconciliation-kobo.onrender.com/identify)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tech Stack
 
-## Installation
+- **Backend Framework**: NestJS with Node.js
+- **Language**: TypeScript
+- **ORM**: Prisma
+- **Database**: PostgreSQL
 
-```bash
-$ npm install
+## Endpoint
+
+### /identify
+
+**Method**: `POST`
+
+**Request Body**:
+```json
+{
+  "email": "string (optional)",
+  "phoneNumber": "string (optional)"
+}
+```
+**Response**:
+```json
+{
+  "contact": {
+    "primaryContactId":  ["number"]
+    "emails": ["string"],
+    "phoneNumbers": ["string"],
+    "secondaryContactIds": ["number"]
+  }
+}
 ```
 
-## Running the app
 
+Running the Project Locally
+To run this project locally, follow these steps:
+1. Clone the Repository
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone https://github.com/Asmirkhan007/Identity-Reconciliation.git
+cd Identity-Reconciliation
 ```
 
-## Test
-
+2. Install Dependencies
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm install
 ```
+3. Set Up Environment Variables
+Create a `.env` file in the root directory and add your database connection details:
+```env
+DATABASE_URL="postgresql://<username>:<password>@<host>:<port>/<database>?schema=public"
+```
+4. Run Database Migrations
+```bash
+npx prisma migrate dev
+```
+5. Start the Server
+```bash
+npm run start
+```
+The server should now be running on ```http://localhost:3000```
 
-## Support
+## Project Structure
+- `src/`
+  - `app.controller.ts`: Controller handling the `/identify` endpoint.
+  - `app.service.ts`: Service containing the business logic for identity reconciliation.
+  - `main.ts`: Main entry point of the application.
+  - `prisma/`: Directory containing Prisma schema and migrations.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
+## Contact
+For any inquiries or issues, please contact:
+- Asmir Khan: [asmirkhan7@gmail.com](mailto:asmirkhan7@gmail.com)
 ## License
-
-Nest is [MIT licensed](LICENSE).
+This project is licensed under the MIT License.
